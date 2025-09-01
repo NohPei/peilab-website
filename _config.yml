@@ -1,0 +1,55 @@
+# Basic
+name:               "PEI Lab"
+title:              "Pervasive Electronics Innovation at the University of Michigan"
+description:        "The PEI Lab is an electrical & computer engineering research group at the University of Michigan, Ann Arbor."
+
+
+# URL
+url:                https://peilab.eecs.umich.edu
+baseurl:            
+#baseurl:            "" #For Root Domain
+permalink:          /:year/:month/:day/:title.html
+
+# Markdown
+markdown:           kramdown
+
+# Highlighter
+highlighter:        rouge
+
+# Navigation
+nav:
+  - name:           "home"
+    href:           "/"
+  - name:           "about"
+    href:           "/about"
+  - name:           "publications"
+    href:           "/publication"
+  - name:           "people"
+    href:           "/people"
+  # - name:           "projects"
+  #   href:           "/project"
+
+# Sass
+sass:
+  style:            :compressed
+
+# Scopes
+defaults:
+  -
+    scope:
+      path:         ""
+      type:         "pages"
+    values:
+      layout:       "page"
+  -
+    scope:
+      path:         ""
+      type:         "people"
+    values:
+      layout:       "profile"
+
+
+collections:
+  people:
+    output: true
+    permalink: /people/:title/index.html
