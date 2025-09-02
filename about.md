@@ -1,4 +1,4 @@
----
+<!-- ---
 title: About
 permalink: /about/
 ---
@@ -12,4 +12,4 @@ Our research enables data science in real physical systems by reducing reliance 
 - Actuating physical sensing hardware to improve data quality for optimal learning
 - Optimizing data adaptation between different application scenarios using the physical understanding of how data distributions change 
 
-This research is informed by real-world applications and deployments using the **structure as sensors**, and **mobile carriers as sensors**.
+This research is informed by real-world applications and deployments using the **structure as sensors**, and **mobile carriers as sensors**. -->

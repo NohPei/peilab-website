@@ -1,6 +1,6 @@
 # PEI Lab @ University of Michigan 
 
-This repository is based on the [Kording lab page](http://kordinglab.com/) and their jekyll template.
+This repository is based on the [Kording lab page](http://kordinglab.com/) and their jekyll template, changes to the desired output/function for the PEI lab.
 
 ## Run the page locally using Jekyll
 

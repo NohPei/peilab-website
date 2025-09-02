@@ -20,14 +20,13 @@ highlighter:        rouge
 nav:
   - name:           "home"
     href:           "/"
-  - name:           "about"
-    href:           "/about"
+  - name:           "projects"
+    href:           "/project"
   - name:           "publications"
     href:           "/publication"
   - name:           "people"
     href:           "/people"
-  # - name:           "projects"
-  #   href:           "/project"
+
 
 # Sass
 sass:

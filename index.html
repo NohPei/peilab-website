@@ -5,62 +5,33 @@ layout: default
 <div class='container'>
     <header class="masthead text-center">
 
-      <p style="text-align: justify; margin: 20px auto; max-width: 90%; line-height: 1.6;">
-      <strong>Among computational neuroscientists and AI scientists, Konrad is a community builder who critically examines causal inference while democratizing scientific education worldwide. His lab challenges how researchers interpret neural data and develop AI systems, creating rigorous methods for causal reasoning when experiments aren't possible. Through initiatives like Neuromatch, training thousands globally, and C4R, improving research practices, the lab transforms how science is taught and conducted. From ambitious projects like simulating C. elegans' entire nervous system to bridging deep learning with neuroscience, the team fosters collaborative science that questions assumptions. By combining methodological skepticism with open education, the lab is building a more rigorous, accessible future for understanding intelligence, both artificial and biological.</strong>
+      <p style="text-align: justify; margin: 20px auto; max-width: 90%; line-height: 1.6;"><strong>
+      The Pervasive Electronics Innovation (PEI) Lab at the University of Michigan, led by Associate Professor Pei Zhang, focuses on cyber-physical systems learning by integrating data, physical knowledge, and hardware systems, while informed by deployments in real-world applications.  
+      </strong></p>
+    
+      <div><p style="text-align: justify; margin: 20px auto; max-width: 90%; line-height: 1.6;">
+      Machine learning has become a useful tool for many data-rich problems. However, its use in cyber-physical systems (CPS) has been severely limited because of its need for large amounts of well-labeled data, often tailored to each deployment scenario. While especially challenging for high-dimensional data, the situation is further exacerbated by the complexity and variability of the physical systems being studied and modeled. For example, smart city applications often require significant data to obtain the required robustness for operations in different weather, time of day, users, and cities, etc. 
+
+      Our research enables data science in real physical systems by reducing reliance on initial labeled data through the integration of physical knowledge, the actuation of sensing systems, and the adaptation of data models. Currently, our work is focusing on:
+
+      <ul style="list-style-type: disc; text-align: left; padding-left: 60px;">
+        <li>Fusing physics-based models with empirical models of the system to create more data</li> 
+        <li>Actuating physical sensing hardware to improve data quality for optimal learning</li>
+        <li>Optimizing data adaptation between different application scenarios using the physical understanding of how data distributions change</li>
+      </ul>
+      This research is informed by real-world applications and deployments using the <strong>structure as sensors</strong>, and <strong>mobile carriers as sensors</strong>.
+      </p></div>
+
+      <!-- <img class='img-responsive center-block' src="/images/people/KLab_Fall_2021.png" width="50%" height="50%" /> -->
+
+
+      <!-- TODO: change this to the lab email?? -->
+      <a href="mailto:peizhang@umich.edu"><i class="far fa-envelope"></i> peizhang@umich.edu</a>
       </p>
-
-      <p style="text-align: justify; margin: 20px auto; max-width: 90%; line-height: 1.6;">
-      The Kording Lab at the University of Pennsylvania, led by Nathan Mossell University Professor Konrad Kording, operates at the intersection of causality, machine learning, and neuroscience. The lab has evolved from computational motor control to tackling fundamental challenges in understanding complex systems. The team develops innovative approaches for neural data analysis and advances neurotechnology. Their work spans from theoretical frameworks to practical applications in brain-computer interfaces and whole-organism simulation, including efforts to simulate the complete C. elegans nervous system. With a uniquely interdisciplinary approach, the Kording Lab has become a hub for researchers interested in using data-driven methods to understand how brains compute and how causality can be inferred from observational data.
-      </p>
-
-      <img class='img-responsive center-block' src="/images/people/KLab_Fall_2021.png" width="50%" height="50%" />
-
-      <p>
-      <i>Causality and Machine learning. <br> Machine Learning and Deep Learning for Neuroscience.<br>
-      Neuroscience for Deep Learning.<br>
-      and Machine Learning for Movement/Meta-Science.</i>
-
-        <span style="display: block; margin-bottom: 3em"></span>
-
-      <a href="https://github.com/KordingLab"><i class="fab fa-github"></i> KordingLab</a>&nbsp;&nbsp;&nbsp;
-      <a href="https://twitter.com/KordingLab"><i class="fab fa-twitter"></i> KordingLab</a>&nbsp;&nbsp;&nbsp;
-      <a href="mailto:kording@upenn.edu"><i class="far fa-envelope"></i> kording@upenn.edu</a>
-      </p>
-
-      <div class="w3-container" style="   background: #f0f8ff; padding: 25px; border-radius:10px; border: 1px solid #5d8aa8">
-        <div style="text-align:left">
-          <h3> Recent News </h3>
-          <u>Happenings of the last few months</u>
-          <span style="display: block; margin-bottom: 1em"></span>
-          <div class="news">
-              {% capture now %}{{'now' | date: '%s' | minus: 7776000 %}}{% endcapture %}
-              <ul style="list-style-position:outside;padding:20px" >
-                {% for new in site.data.news %}
-                  {% capture date %}{{new.date | date: '%s' | plus: 0 %}}{% endcapture %}
-                  {% if date > now %}
-                    <li>
-                      <span>
-                        {{ new.details }}
-                      </span>
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-          </div>
-        </div >
-      </div>
-
-
 
       <span style="display: block; margin-bottom: 3em"></span>
-
-
-      <a class="twitter-timeline" href="https://twitter.com/KordingLab" data-widget-id="695051708246941697">Tweets by @KordingLab</a>
-      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-      <span style="display: block; margin-bottom: 3em"></span>
-      Department of Bioengineering and Department of Neuroscience at University of Pennsylvania<br>
-      404 Richards Building, 3700 Hamilton Walk, Philadelphia, PA 19104
+      Department of Electrical & Computer Engineering University of Michigan<br>
+      1301 Beal Ave, Ann Arbor, MI 48109
       <span style="display: block; margin-bottom: 3em"></span>
 
     </header>

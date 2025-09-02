@@ -3,11 +3,11 @@ title: Publication
 permalink: /publication/
 ---
 
-This webpage is still a work in progress, so please refer to Pei's [Google Scholar profile](https://scholar.google.com/citations?user=MiFqJGcAAAAJ) for past and current papers.
+This webpage is still a work in progress, so please refer to Pei Zhang's [Google Scholar profile](https://scholar.google.com/citations?user=MiFqJGcAAAAJ) for a comprehensive list of past and current papers.
 
 <hr>
 
-<!-- example usage for this section:
+<!-- example usage for this section if we want to keep:
 
 ### 2025
 
