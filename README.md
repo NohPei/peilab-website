@@ -8,7 +8,6 @@ To run locally, follow instruction [here](https://jekyllrb.com/) to install Jeky
 
 ```bash
 sudo gem install jekyll
-sudo gem install rouge
 jekyll serve
 ```
 
@@ -22,8 +21,8 @@ You can add yourself to the page in `_people` folder just create file name `<fir
 
 ``` markdown
 ---
-name: Eva Dyer
-position: postdoc
+name: Julia Gersey
+position: graduate
 avatar: eva.jpg
 twitter:
 joined: 2014

@@ -1,7 +1,7 @@
 ---
 name: Jiale Zhang
 position: gradstudent
-avatar: ece-photo-placeholder.png
+avatar: jiale-zhang.png
 joined: 2021
 ---
 
