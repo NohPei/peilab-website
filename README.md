@@ -16,8 +16,10 @@ jekyll serve
 ```
 4. push your changes to UM's vhost for them to take affect!'
 ``` bash
-scp -r _site/* <uniquename>@vhosts.eecs.umich.edu:/w/peilab/
+rsync -rlP _site/ <uniquename>@vhosts.eecs.umich.edu:/w/peilab/
 ```
+
+Try to avoid using `scp` to transfer the files as it tries to overwrite permissions that can break things for everyone else.
 ---
 Here are more specific notes on how to edit the site:
 
