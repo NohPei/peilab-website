@@ -1,7 +1,7 @@
 ---
 name: Tomas Fernandez
 position: gradstudent
-avatar: ece-photo-placeholder.png
+avatar: tomas-fernandez.jpg
 joined: 2025
 ---
 
