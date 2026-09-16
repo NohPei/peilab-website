@@ -12,6 +12,9 @@ handle page formatting, so routine contributions need only Markdown, metadata an
 5. Commit the source files and assets together, push your branch to GitHub, and open a pull request describing the update.
 6. After review and merge, a lab maintainer updates their local `main`, builds locally, and copies the generated `_site/` files to the U-M vhost using [README.md](README.md#production-build-and-deployment).
 
+Start new branches from up-to-date `main`. The earlier `website-maintenance`
+branch has already been incorporated into `main` and is not a deployment branch.
+
 Always save changes on GitHub before publishing them. GitHub tracks the source;
 the vhost serves the generated website. Pushing to GitHub does not deploy the
 site automatically. Do not edit website files directly on the remote vhost.
@@ -19,6 +22,13 @@ site automatically. Do not edit website files directly on the remote vhost.
 For an approved update, an authorized maintainer may push reviewed commits
 directly to `main` when repository rules permit, instead of opening a pull
 request. Build from the clean local commit saved on GitHub `main`, then upload.
+
+The README's publishing walkthrough labels the PowerShell and local WSL/Bash
+commands separately. It covers SSH login, a server backup, a dry run, copying
+the **contents** of `_site/` into `/w/peilab/`, and checking the public result.
+Keep the preview stopped during the production build and upload. A partial
+upload must include every generated page and asset affected by the change.
+Documentation-only changes need a GitHub push but no vhost upload.
 
 Keep one change per pull request when practical. Do not commit `_site/`, caches
 or local comparison output. Documentation, templates, scripts and the HTML guide
