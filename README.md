@@ -13,6 +13,7 @@ content files with shared templates and writes the published website to `_site/`
 | Update | Edit |
 | --- | --- |
 | Person, bio or email | `_people/<existing-filename>.md` (optional `email` field) |
+| Master's / undergraduate mentor | `_people/*.md`: for `position: others`, add `mentor: Julia` to show a line below the name |
 | Disable a person's name/photo links | Set `profile_link: false` in their `_people/*.md`; remove it or use `true` to restore links |
 | Alumni / graduation year | `_people/*.md`: `position: alumni` and `graduation_year: 2026`; automatically grouped newest first |
 | Headshot | `images/people/`; match the profile's `avatar` field |

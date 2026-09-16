@@ -51,8 +51,12 @@ joined: 2026
 
 - Put the photo in `images/people/firstname-lastname.jpg`.
 - Set `email` to the address you want displayed. It becomes a clickable link on
-  a second line below your name in the People listing and on your profile page.
+  a line below your name in the People listing and on your profile page.
   Omit it or use `email: null` when no address should be displayed.
+- For master's and undergraduate students (`position: others`), set `mentor`
+  to the mentor's display name, for example `mentor: Julia`. The People listing
+  shows `Mentor: Julia` directly below the student's name, before any email.
+  Omit it or use `mentor: null` to hide the line.
 - Use `avatar: null` when no photo is available. The listing uses the local placeholder.
 - Write the bio after the second `---` line. Do not add the profile-photo HTML;
   `_layouts/profile.html` renders the photo automatically.
