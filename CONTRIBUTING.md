@@ -55,8 +55,8 @@ joined: 2026
   Omit it or use `email: null` when no address should be displayed.
 - For master's and undergraduate students (`position: others`), set `mentor`
   to the mentor's display name, for example `mentor: Julia`. The People listing
-  shows `Mentor: Julia` directly below the student's name, before any email.
-  Omit it or use `mentor: null` to hide the line.
+  shows `Ellina Ho (Mentor: Julia)` with the mentor beside the student's name.
+  Omit it or use `mentor: null` to hide the mentor text.
 - Use `avatar: null` when no photo is available. The listing uses the local placeholder.
 - Write the bio after the second `---` line. Do not add the profile-photo HTML;
   `_layouts/profile.html` renders the photo automatically.

@@ -13,7 +13,7 @@
     <a class="name" href="{{ site.baseurl }}{{ include.person.url }}">{{ include.person.name }}</a>
     {% endif %}
     {% if include.person.position == 'others' and include.person.mentor and include.person.mentor != empty %}
-    <span class="person-mentor">Mentor: {{ include.person.mentor | escape }}</span>
+    <span class="person-mentor">(Mentor: {{ include.person.mentor | escape }})</span>
     {% endif %}
     {% if include.person.email and include.person.email != empty %}
     <span class="person-email"><a href="mailto:{{ include.person.email | escape }}">{{ include.person.email | escape }}</a></span>

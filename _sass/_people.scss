@@ -15,13 +15,16 @@
   vertical-align: top;
 }
 
-.person-email,
-.person-mentor {
+.person-email {
   display: block;
   margin-top: 0.2rem;
   font-size: 14px;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.person-mentor {
+  font-size: 14px;
 }
 
 .list-post-title .person-email a {
