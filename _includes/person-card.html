@@ -1,11 +1,17 @@
 <div class="list-item-people">
   <p class="list-post-title">
+    {% unless include.person.profile_link == false %}<a href="{{ site.baseurl }}{{ include.person.url }}">{% endunless %}
     {% if include.person.avatar %}
-    <a href="{{ site.baseurl }}{{ include.person.url }}"><img class="profile-thumbnail" src="{{ site.baseurl }}/images/people/{{ include.person.avatar }}"></a>
+    <img class="profile-thumbnail" src="{{ site.baseurl }}/images/people/{{ include.person.avatar }}" alt="{{ include.person.name | escape }}">
     {% else %}
-    <a href="{{ site.baseurl }}{{ include.person.url }}"><img class="profile-thumbnail" src="{{ '/images/people/ece-photo-placeholder.png' | relative_url }}" alt=""></a>
+    <img class="profile-thumbnail" src="{{ '/images/people/ece-photo-placeholder.png' | relative_url }}" alt="">
     {% endif %}
+    {% unless include.person.profile_link == false %}</a>{% endunless %}
+    {% if include.person.profile_link == false %}
+    <span class="name">{{ include.person.name }}</span>
+    {% else %}
     <a class="name" href="{{ site.baseurl }}{{ include.person.url }}">{{ include.person.name }}</a>
+    {% endif %}
     {% if include.person.email and include.person.email != empty %}
     <span class="person-email"><a href="mailto:{{ include.person.email | escape }}">{{ include.person.email | escape }}</a></span>
     {% endif %}

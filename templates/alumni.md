@@ -1,6 +1,7 @@
 ---
 name: "Your Full Name"
 email: null
+profile_link: true
 position: alumni
 previous_role: "PhD Student"
 graduation_year: 2026

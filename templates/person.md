@@ -1,6 +1,7 @@
 ---
 name: "Your Full Name"
 email: null
+profile_link: true
 position: gradstudent
 avatar: null
 joined: 2026

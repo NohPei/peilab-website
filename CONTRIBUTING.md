@@ -47,6 +47,10 @@ joined: 2026
 - Write the bio after the second `---` line. Do not add the profile-photo HTML;
   `_layouts/profile.html` renders the photo automatically.
 - Names, biographies and personal links belong in the person file.
+- Set `profile_link: false` (without quotes) to show a person's name and portrait
+  without links in the People listing while their bio is not ready. Omit the
+  field or set it to `true` to restore both links. Email links stay active, and
+  the individual profile URL remains available.
 - People are grouped by role and sorted by `joined`, as before.
 
 ### Role values

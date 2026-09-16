@@ -97,6 +97,9 @@ required.each do |folder, fields|
     end
     case folder
     when "_people"
+      if data.key?("profile_link") && ![true, false].include?(data["profile_link"])
+        errors << "#{label}: profile_link must be true or false, without quotes"
+      end
       if data["email"] && data["email"] != "" && !(data["email"].is_a?(String) && data["email"].match?(/\A[^\s@<>:]+@[^\s@<>:]+\.[^\s@<>:]+\z/))
         errors << "#{label}: email must be an address such as name@umich.edu, or null"
       end
