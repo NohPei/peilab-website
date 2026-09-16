@@ -1,0 +1,40 @@
+      {% assign slideshow_files = site.data.slideshow %}
+      {% assign first_slide = slideshow_files | first %}
+
+      <section
+        class="hero-slideshow"
+        id="hero-slideshow"
+        aria-label="Lab highlights slideshow"
+        data-images='[{% for image in slideshow_files %}{{ image.path | relative_url | jsonify | escape }}{% unless forloop.last %},{% endunless %}{% endfor %}]'
+        data-alts='{{ site.data.slideshow | map: "alt" | jsonify | escape }}'
+      >
+        <div class="hero-slideshow__viewport" id="hero-slideshow-viewport">
+          <img
+            class="hero-slideshow__image"
+            id="hero-slideshow-image"
+            src="{% if first_slide %}{{ first_slide.path | relative_url | escape }}{% endif %}"
+            alt="PEI lab highlight photo"
+          />
+          <button
+            type="button"
+            class="hero-slideshow__arrow hero-slideshow__arrow--left"
+            id="hero-slideshow-prev"
+            aria-label="Previous slideshow image"
+          >
+            &#10094;
+          </button>
+          <button
+            type="button"
+            class="hero-slideshow__arrow hero-slideshow__arrow--right"
+            id="hero-slideshow-next"
+            aria-label="Next slideshow image"
+          >
+            &#10095;
+          </button>
+        </div>
+        <div
+          class="hero-slideshow__dots"
+          id="hero-slideshow-dots"
+          aria-label="Slideshow pagination"
+        ></div>
+      </section>

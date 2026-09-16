@@ -1,0 +1,23 @@
+{% assign paper = include.paper %}
+<li class="publication-item">
+  <div class="publication-thumbnail">
+    {% if paper.image %}<img src="{{ paper.image | relative_url }}" alt="{{ paper.image_alt | escape }}" loading="lazy" width="180">{% endif %}
+  </div>
+  <article class="publication-entry">
+    <h3 class="publication-title">{% if paper.award %}<span class="publication-award">({{ paper.award | upcase | escape }})</span> {% endif %}{{ paper.title | escape }}</h3>
+    <div class="publication-authors">
+      {% for author in paper.authors limit:3 %}{{ author | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% if paper.authors.size > 3 %}, and
+      <details class="publication-more-authors"><summary>{{ paper.authors.size | minus: 3 }} more author{% if paper.authors.size > 4 %}s{% endif %}</summary><span>{% for author in paper.authors offset:3 %}{{ author | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}</span></details>{% endif %}
+    </div>
+    <div class="publication-venue"><em>{{ paper.venue | escape }}</em>{% if paper.location %}, {{ paper.location | escape }}{% endif %}, {{ paper.year }}</div>
+    <div class="publication-actions">
+      {% if paper.abstract %}<details class="publication-abstract"><summary class="publication-button">Abs</summary><div class="publication-abstract-text">{{ paper.abstract | markdownify }}</div></details>{% endif %}
+      <div class="publication-links">
+        {% if paper.paper_url %}<a class="publication-button" href="{{ paper.paper_url | escape }}">{{ paper.paper_label | default: 'Article' | escape }}</a>{% endif %}
+        {% if paper.pdf %}<a class="publication-button" href="{{ paper.pdf | relative_url }}">PDF</a>{% endif %}
+        {% if paper.code_url %}<a class="publication-button" href="{{ paper.code_url | escape }}">Code</a>{% endif %}
+      </div>
+    </div>
+    {{ paper.content | markdownify }}
+  </article>
+</li>

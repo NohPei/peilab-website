@@ -1,0 +1,8 @@
+---
+layout: page
+---
+<article class="project">
+  <h1 class="page-title">{{ page.title | escape }}</h1>
+  {% if page.image %}<img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | escape }}">{% endif %}
+  {{ content }}
+</article>

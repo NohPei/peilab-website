@@ -1,0 +1,27 @@
+<script src="{{ site.baseurl }}/js/home-slideshow.js"></script>
+<script>
+  var slideshowContainer = document.getElementById('hero-slideshow');
+  var slideshowImages = [];
+  var slideshowAlts = [];
+
+  if (slideshowContainer) {
+    try {
+      slideshowImages = JSON.parse(slideshowContainer.getAttribute('data-images') || '[]');
+      slideshowAlts = JSON.parse(slideshowContainer.getAttribute('data-alts') || '[]');
+    } catch (error) {
+      slideshowImages = [];
+    }
+  }
+
+  window.PEISlideshow.init({
+    containerId: 'hero-slideshow',
+    viewportId: 'hero-slideshow-viewport',
+    imageId: 'hero-slideshow-image',
+    dotsContainerId: 'hero-slideshow-dots',
+    previousButtonId: 'hero-slideshow-prev',
+    nextButtonId: 'hero-slideshow-next',
+    intervalMs: 5000,
+    images: slideshowImages,
+    alts: slideshowAlts
+  });
+</script>

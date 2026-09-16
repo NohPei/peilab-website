@@ -1,0 +1,21 @@
+name: Check website
+
+on:
+  pull_request:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate content and asset references
+        run: docker compose run --rm --entrypoint ruby jekyll scripts/validate.rb
+      - name: Build production website
+        run: docker compose run --rm -e JEKYLL_ENV=production jekyll build
+      - name: Exercise contributor templates in a temporary copy
+        run: docker compose run --rm -e JEKYLL_ENV=production --entrypoint ruby jekyll scripts/check-build.rb

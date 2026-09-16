@@ -1,99 +1,136 @@
-# PEI Lab @ University of Michigan 
+# PEI Lab @ University of Michigan
 
-The sole purpose of this repository is to create the [PEI lab website](https://peilab.eecs.umich.edu).
+Source for the [PEI Lab website](https://peilab.eecs.umich.edu). Jekyll combines
+content files with shared templates and writes the published website to `_site/`.
 
+## Start here
 
-## Editing the lab website
+- **Visual folder guide:** open [_guides/show-me-website-map.html](_guides/show-me-website-map.html) in a browser.
+- **Saved project design:** open the [reusable HTML template](templates/project-page.html) or [ViLA reference](_guides/show-me-project-vila.html). These drafts include optional video/material areas and stay out of the published projects.
+- **Add or edit content:** follow [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Maintain templates and styling:** see [docs/STRUCTURE.md](docs/STRUCTURE.md).
 
-Here is how to edit the lab webpage:
+| Update | Edit |
+| --- | --- |
+| Person, bio or email | `_people/<existing-filename>.md` (optional `email` field) |
+| Alumni / graduation year | `_people/*.md`: `position: alumni` and `graduation_year: 2026`; automatically grouped newest first |
+| Headshot | `images/people/`; match the profile's `avatar` field |
+| Project | `_projects/<project-name>.md` |
+| Publication | `_publications/<year>-<paper-name>.md` |
+| News post | `_posts/YYYY-MM-DD-title.md` |
+| Project / post figures | `images/projects/<project-name>/` or `images/posts/<post-name>/` |
+| Paper PDFs | `files/publications/` |
+| Publication thumbnails | `images/publications/` |
+| Homepage text | `index.html` |
+| Slideshow images, order and alt text | `images/slideshow/` + `_data/slideshow.yml` |
+| Navigation | `_data/navigation.yml` |
+| Member role labels / order | `_data/roles.yml` |
 
-1. clone this repository to your local machine
-2. make your desired changes (i.e. adding project, members, or publications)
-3. rebuild & view your changes locally:
-``` bash
-jekyll build
-jekyll serve
+Copy a starting file from `templates/`. People, project and publication listings
+read their content folders automatically. The news listing is prepared but
+disabled until the first post is ready; see the activation steps in CONTRIBUTING.md.
+Existing projects/publications introduction text stays in the root page files.
+
+## Preview locally with Docker (Windows or other platforms)
+
+This uses the same Ruby/Jekyll Docker image as `HCIMaker.github.io`; no local
+Ruby installation is needed.
+
+1. Start Docker Desktop and wait for its engine to run.
+2. Open a terminal in this repository:
+
+```powershell
+docker compose up
 ```
-4. push your changes to UM's vhost for them to take affect!'
-``` bash
-rsync -rlP _site/ <uniquename>@vhosts.eecs.umich.edu:/w/peilab/
-```
 
-Try to avoid using `scp` to transfer the files as it tries to overwrite permissions that can break things for everyone else.
----
-Here are more specific notes on how to edit the site:
+Open <http://localhost:4000> once Jekyll reports that the server is running.
+Keep it running while editing, then refresh your browser after each rebuild.
+Data-file edits are picked up automatically. After changing `_config.yml` or
+`_config.local.yml`, stop with `Ctrl+C` and run the command again.
 
-###  Run the page locally using Jekyll
+For background operation, use `docker compose up -d`, inspect output with
+`docker compose logs -f`, and stop with `docker compose down`.
 
-To run locally, follow instruction [here](https://jekyllrb.com/) to install Jekyll then run `jekyll serve` to see in `localhost:4000`. Here is a brief install guidelines.
+### Existing Jekyll installation
+
+If you already have a compatible Jekyll installation, run:
 
 ```bash
-sudo gem install jekyll
-jekyll serve
+jekyll serve --config _config.yml,_config.local.yml
 ```
 
-### Add yourself
+The Docker runtime is the reference environment used by the automated checks.
 
-You can add yourself to the page in `_people` folder just create file name `<firstname>_<lastname>.md` in the folder. We require few line of header before you start writing your own page. See the following for the header
+## Check your update
 
-``` markdown
----
-name: Julia Gersey
-position: graduate
-avatar: julia-gersey.png
-joined: 2024
----
+```powershell
+docker compose run --rm --entrypoint ruby jekyll scripts/validate.rb
+docker compose run --rm -e JEKYLL_ENV=production --entrypoint ruby jekyll scripts/check-build.rb
 ```
 
-If you don't have information, just leave it blank. The avatar will bring photo from `images/people` folder and display it on people page. 
-For lab position, you can choose position from 4 classes including `postdoc`, `gradstudent`, `visiting`, `others` (so called Honorary members). Position will put you into section that you choose.
+The first command validates required fields, member roles and local content assets.
+The second builds sample contributions in a temporary copy, including alumni,
+projects, publications, posts, images and unpublished records. It does not add
+sample content to your working website. GitHub Actions runs both checks and a
+production build on pushes and pull requests.
 
-### Add new publications
+## Production build and deployment
 
-All publications from the lab are located in `publications.md`. Please upload new publication on your own!
+Follow this order for every update: **edit locally → check and preview → commit
+and push to GitHub → build locally → upload to the U-M vhost**. GitHub holds the
+source and change history; `/w/peilab/` holds the generated public website.
+Make all content, layout and style edits in your local repository. Do not edit
+website files directly on the remote vhost.
 
+### 1. Save the source on GitHub
 
-## Internal
+Commit the source files, assets and any contributor documentation together, then
+push your branch to `origin` (`https://github.com/NohPei/peilab-website`). Follow
+the pull request workflow in [CONTRIBUTING.md](CONTRIBUTING.md); after review and
+merge, update your local `main` before building the version to publish. Check
+that the working tree is clean with `git status` and record `git rev-parse HEAD`
+so the published version can be traced to a commit. Do not commit `_site/`.
 
-### When to Add/Remove Yourself from the Webpage
+Pushing to GitHub runs checks; it does not upload files to the U-M vhost.
 
-**When to ADD yourself:**
-- When you officially join the PEI Lab as a graduate student, postdoc, research staff, or visiting scholar
-- Ideally within your first week of joining the lab
+### 2. Build locally from the saved source
 
-**When to REMOVE yourself:**
-- When you graduate or complete your position in the lab
-- When transitioning to alumni status (you don't delete your profile, just change your position to 'alumni')
-- If you're a visiting scholar, when your visit period ends
+Stop the preview before writing production output to `_site/`:
 
-### How to Add Yourself to the People Page
+```powershell
+docker compose down
+docker compose run --rm -e JEKYLL_ENV=production jekyll build
+```
 
-1. **Create your profile file:**
-   - Navigate to the `_people` folder
-   - Create a new file named `<firstname>_<lastname>.md` (all lowercase, e.g., `john_smith.md`)
-   
-2. **Add the required header:**
-   ```markdown
-   ---
-   name: Your Full Name
-   position: [choose one: gradstudent/postdoc/researchstaff/visiting/alumni]
-   avatar: yourphoto.jpg
-   joined: 2024
-   ---
-   ```
-   
-3. **Add your photo:**
-   - Add a headshot photo to the `images/people/` folder
-   - Name it to match the avatar field in your header (e.g., `your_photo.jpg`)
-   
-4. **(optional) Write your bio:**
-   - After the header, write a brief bio (2-3 paragraphs)
-   - Could be your research interests, background, and current projects
-   - You can use markdown formatting for links, bold text, etc.
+Using an existing Jekyll installation instead: `JEKYLL_ENV=production jekyll build`.
 
-5. **Submit your changes:**
-   - If comfortable with git: commit and push your changes, then copy the `_site/` directory to UM's vhost ( /w/peilab/ )
-   - If not: email your files to the lab manager or ask for help
+### 3. Upload and verify
 
+Back up the live website before uploading. Connect to the U-M VPN when needed.
+An authorized lab maintainer can then upload the generated files using the
+existing UM vhost workflow (from an environment with `rsync`, such as WSL):
 
-If you need help making changes, unsure about the structure, or need help with anything feel free to reach out to Julia. 
+```bash
+rsync -rlcP _site/ <uniquename>@vhosts.eecs.umich.edu:/w/peilab/
+```
+
+Avoid `scp`: changing destination permissions can break access for other maintainers.
+The `-c` option compares file contents, avoiding unnecessary transfers when local
+timestamps differ. After uploading, verify the public pages and use
+`rsync -rlcni _site/ <uniquename>@vhosts.eecs.umich.edu:/w/peilab/` to check for
+remaining content differences.
+The existing `rsync` command copies updates but does not remove old remote files;
+when profiles or pages are removed, the maintainer must also review obsolete
+remote paths against the source changes saved on GitHub. Never edit `_site/` as
+source: the next build overwrites it.
+
+If rsync reports `Permission denied`, the owner of the affected server directory
+or an administrator must restore shared access. For each reviewed directory,
+the owner can run `chgrp peigroup <directory>` and
+`chmod g+rwx,g+s <directory>`. This keeps existing owner/other access while allowing
+lab maintainers to update files and making new files inherit the lab group.
+Do not report deployment complete until remaining differences and obsolete paths
+have been resolved. GitHub repository access and vhost filesystem access are
+separate; pushing a commit does not change permissions on the server.
+
+For help with contributions, reach out to Julia.

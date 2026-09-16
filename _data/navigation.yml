@@ -1,0 +1,13 @@
+# Menu order matches this list. Preserve existing hrefs when reorganizing files.
+- name: home
+  href: /
+- name: projects
+  href: /project
+- name: publications
+  href: /publication
+- name: people
+  href: /people
+
+# When the first news post is ready, enable news.md and add:
+# - name: news
+#   href: /news/

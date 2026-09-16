@@ -1,0 +1,13 @@
+<div class="list-item-people">
+  <p class="list-post-title">
+    {% if include.person.avatar %}
+    <a href="{{ site.baseurl }}{{ include.person.url }}"><img class="profile-thumbnail" src="{{ site.baseurl }}/images/people/{{ include.person.avatar }}"></a>
+    {% else %}
+    <a href="{{ site.baseurl }}{{ include.person.url }}"><img class="profile-thumbnail" src="{{ '/images/people/ece-photo-placeholder.png' | relative_url }}" alt=""></a>
+    {% endif %}
+    <a class="name" href="{{ site.baseurl }}{{ include.person.url }}">{{ include.person.name }}</a>
+    {% if include.person.email and include.person.email != empty %}
+    <span class="person-email"><a href="mailto:{{ include.person.email | escape }}">{{ include.person.email | escape }}</a></span>
+    {% endif %}
+  </p>
+</div>

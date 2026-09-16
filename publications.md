@@ -3,6 +3,8 @@ title: Publication
 permalink: /publication/
 ---
 
+# Publications
+
 This webpage is still a work in progress, so please refer to Pei Zhang's [Google Scholar profile](https://scholar.google.com/citations?user=xkIcvmIAAAAJ) for a comprehensive list of past and current papers.
 
 <hr>
@@ -19,3 +21,4 @@ _Who Does What in Deep Learning? Multidimensional Game-Theoretic Attribution of 
 S Dixit, K Fakhar, F Hadaeghi, P Mineault, KP Kording, CC Hilgetag<br>
 arXiv preprint arXiv:2506.19732, 2025 ([Article](https://arxiv.org/abs/2506.19732)) -->
 
+{% include publication-list.html %}

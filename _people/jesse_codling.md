@@ -1,11 +1,15 @@
 ---
 name: Jesse R Codling
-position: gradstudent
+email: codling@umich.edu
+position: alumni
+previous_role: PhD Student
+graduation_year: 2026
+destination: Computer Engineer, Battelle · Full-time
 avatar: jesse-codling.jpg
 joined: 2019
 ---
 
-<img width="300" src="{{site.baseurl}}/images/people/{{page.avatar}}" data-action="zoom">
+
 
 Jesse R Codling is a Ph.D. Candidate at the University of Michigan, Ann Arbor
 under [Dr. Pei Zhang](../pei_zhang). Before moving to the University of

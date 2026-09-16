@@ -1,27 +1,17 @@
 (function () {
   'use strict';
 
-  function getSlideNumber(path) {
-    var fileName = (path.split('/').pop() || '').replace(/\.[^.]+$/, '');
-    var match = fileName.match(/^(\d+)/);
-    return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
-  }
-
   function getReadableAlt(path) {
     var fileStem = (path.split('/').pop() || 'Lab highlight').replace(/\.[^.]+$/, '');
     fileStem = fileStem.replace(/^\d+[-_]?/, '');
     return fileStem.replace(/[-_]+/g, ' ');
   }
 
-  function getOrderedImages(imagePaths) {
-    return imagePaths.slice().sort(function (a, b) {
-      return getSlideNumber(a) - getSlideNumber(b);
-    });
-  }
-
   function init(options) {
     var settings = options || {};
-    var images = getOrderedImages(Array.isArray(settings.images) ? settings.images.filter(Boolean) : []);
+    // The data file owns slide order; filenames no longer need numeric prefixes.
+    var images = Array.isArray(settings.images) ? settings.images : [];
+    var alts = Array.isArray(settings.alts) ? settings.alts : [];
     var container = document.getElementById(settings.containerId);
     var viewport = document.getElementById(settings.viewportId);
     var imageNode = document.getElementById(settings.imageId);
@@ -62,7 +52,7 @@
       imageNode.classList.add('is-transitioning');
       window.setTimeout(function () {
         imageNode.src = path;
-        imageNode.alt = getReadableAlt(path);
+        imageNode.alt = alts[currentIndex] || getReadableAlt(path);
         imageNode.classList.remove('is-transitioning');
         setActiveDot();
       }, 120);

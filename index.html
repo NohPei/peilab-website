@@ -1,49 +1,6 @@
 ---
-layout: default
+layout: home
 ---
-
-<div class='container'>
-    <header class="masthead text-center">
-
-      {% assign slideshow_files = site.static_files | where_exp: "file", "file.path contains '/images/slideshow/'" | sort: "path" %}
-      {% assign first_slide = slideshow_files | first %}
-
-      <section
-        class="hero-slideshow"
-        id="hero-slideshow"
-        aria-label="Lab highlights slideshow"
-        data-images='[{% for image in slideshow_files %}"{{ image.path | relative_url }}"{% unless forloop.last %},{% endunless %}{% endfor %}]'
-      >
-        <div class="hero-slideshow__viewport" id="hero-slideshow-viewport">
-          <img
-            class="hero-slideshow__image"
-            id="hero-slideshow-image"
-            src="{% if first_slide %}{{ first_slide.path | relative_url }}{% endif %}"
-            alt="PEI lab highlight photo"
-          />
-          <button
-            type="button"
-            class="hero-slideshow__arrow hero-slideshow__arrow--left"
-            id="hero-slideshow-prev"
-            aria-label="Previous slideshow image"
-          >
-            &#10094;
-          </button>
-          <button
-            type="button"
-            class="hero-slideshow__arrow hero-slideshow__arrow--right"
-            id="hero-slideshow-next"
-            aria-label="Next slideshow image"
-          >
-            &#10095;
-          </button>
-        </div>
-        <div
-          class="hero-slideshow__dots"
-          id="hero-slideshow-dots"
-          aria-label="Slideshow pagination"
-        ></div>
-      </section>
 
       <p style="text-align: justify; margin: 20px auto; max-width: 90%; line-height: 1.6;"><strong>
       The <i>Pervasive Electronics Innovation (PEI)</i> Lab is led by Associate Professor Pei Zhang at the University of Michigan, and focuses on cyber-physical systems learning by integrating data, physical knowledge, and hardware systems, while informed by real-world deployments and applications.  
@@ -72,31 +29,3 @@ layout: default
       Department of Electrical & Computer Engineering University of Michigan<br>
       1301 Beal Ave, Ann Arbor, MI 48109
       <span style="display: block; margin-bottom: 3em"></span>
-
-    </header>
-</div>
-
-<script src="{{ site.baseurl }}/js/home-slideshow.js"></script>
-<script>
-  var slideshowContainer = document.getElementById('hero-slideshow');
-  var slideshowImages = [];
-
-  if (slideshowContainer) {
-    try {
-      slideshowImages = JSON.parse(slideshowContainer.getAttribute('data-images') || '[]');
-    } catch (error) {
-      slideshowImages = [];
-    }
-  }
-
-  window.PEISlideshow.init({
-    containerId: 'hero-slideshow',
-    viewportId: 'hero-slideshow-viewport',
-    imageId: 'hero-slideshow-image',
-    dotsContainerId: 'hero-slideshow-dots',
-    previousButtonId: 'hero-slideshow-prev',
-    nextButtonId: 'hero-slideshow-next',
-    intervalMs: 5000,
-    images: slideshowImages
-  });
-</script>

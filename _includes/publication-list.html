@@ -1,0 +1,21 @@
+{% assign papers = site.publications | where_exp: 'paper', 'paper.published != false' | sort: 'year' | reverse %}
+{% assign years = papers | group_by: 'year' %}
+<div class="publications">
+  {% if papers.size > 0 %}
+  <div class="publication-search" hidden>
+    <label class="sr-only" for="publication-filter">Filter publications by title, author, venue or year</label>
+    <input id="publication-filter" type="search" placeholder="Type to filter" autocomplete="off">
+  </div>
+  <p class="publication-empty" role="status" hidden>No publications match your search.</p>
+  {% endif %}
+  {% for year in years %}
+  <section class="publication-year" aria-labelledby="publication-year-{{ year.name }}">
+    <h2 id="publication-year-{{ year.name }}">{{ year.name }}</h2>
+    <ol class="publication-list">
+      {% assign year_papers = year.items | sort: 'path' %}
+      {% for paper in year_papers %}{% include publication-item.html paper=paper %}{% endfor %}
+    </ol>
+  </section>
+  {% endfor %}
+</div>
+<script src="{{ '/js/publications.js' | relative_url }}" defer></script>

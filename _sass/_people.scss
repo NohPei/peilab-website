@@ -1,0 +1,116 @@
+// customization
+.pos_header {
+  margin-left: 2rem;
+}
+
+.people {
+  margin: auto;
+  text-align: center;
+  margin-top: 0.75em;
+}
+
+.list-item-people {
+  display: inline-block;
+  padding-right: 1em;
+  vertical-align: top;
+}
+
+.person-email {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.list-post-title .person-email a {
+  color: #268bd2;
+}
+
+.list-post-title img {
+  margin-bottom: 0.75em;
+  margin-top: 1.25em;
+}
+
+.list-post-title .name {
+  font-size: 18px;
+}
+
+.list-post-title {
+  color: black;
+}
+
+.list-detail {
+  font-size: 15px;
+  color: #838383;
+}
+
+.list-item a:hover, .list-post-title:hover .name, .list-post-title .name:hover {
+  color: #c42929;
+}
+
+.page-title {
+  margin-bottom: 0.6em;
+}
+
+// Alumni reuse the photo/name/email cards at a smaller size.
+.alumni-heading h3 {
+  font-size: 1rem;
+  margin-bottom: 0.4rem;
+}
+
+.alumni-year-heading {
+  margin: 1rem 2rem 0.25rem;
+  font-size: 0.85rem;
+  color: #626262;
+}
+
+.alumni-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 2rem 1.5rem;
+}
+
+.alumni-item {
+  flex: 0 1 150px;
+  max-width: 100%;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.alumni-item .list-item-people {
+  display: block;
+  padding-right: 0;
+}
+
+.alumni-item .profile-thumbnail {
+  width: 120px;
+  height: 120px;
+  margin: 0.75rem auto 0.5rem;
+}
+
+.alumni-item .list-post-title .name {
+  font-size: 16px;
+}
+
+.alumni-item .person-email {
+  font-size: 13px;
+  margin-top: 0.1rem;
+}
+
+.alumni-details {
+  margin-top: 0.25rem;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #626262;
+  overflow-wrap: anywhere;
+}
+
+.alumni-destination {
+  display: block;
+}

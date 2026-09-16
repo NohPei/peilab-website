@@ -1,0 +1,18 @@
+{% for role in site.data.roles %}
+{% assign people_in_role = site.people | where: 'position', role.id %}
+{% if people_in_role.size == 0 %}{% continue %}{% endif %}
+<div class="pos_header{% if role.id == 'alumni' %} alumni-heading{% endif %}">
+<h3>{{ role.label }}</h3>
+</div>
+{% if role.id == 'alumni' %}
+{% include alumni-list.html people=people_in_role %}
+{% else %}
+{% assign people_in_role = people_in_role | sort: 'joined' %}
+<div class="content list people">
+{% for profile in people_in_role %}
+{% include person-card.html person=profile %}
+{% endfor %}
+</div>
+<hr>
+{% endif %}
+{% endfor %}

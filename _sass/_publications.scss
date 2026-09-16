@@ -1,0 +1,55 @@
+// Publication rows follow HCIMaker's al-folio bibliography presentation.
+.publications {
+  margin-top: 2rem;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 16px;
+  color: #212529;
+  line-height: 1.5;
+
+  [hidden] { display: none !important; }
+  .publication-search input {
+    width: 100%; padding: 8px 12px; border: 1px solid #ddd;
+    border-radius: 4px; background: transparent; font: inherit;
+  }
+  .publication-year > h2 {
+    border-top: 1px solid #ddd; color: #aaa; text-align: right;
+    font: 300 28px/1.2 Roboto, Arial, sans-serif; letter-spacing: 0;
+    padding-top: 16px; margin: 32px 0 16px;
+  }
+  .publication-list { list-style: none; padding: 0; font: inherit; }
+  .publication-item {
+    display: grid; grid-template-columns: 150px minmax(0, 1fr);
+    gap: 26px; margin-bottom: 28px;
+  }
+  .publication-thumbnail img {
+    width: 100%; height: auto; margin: 0 0 8px;
+    border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,.16);
+  }
+  .publication-title { font: 700 16px/1.5 Roboto, Arial, sans-serif; letter-spacing: 0; margin: 0; color: inherit; }
+  .publication-authors, .publication-venue { margin: 0; }
+  .publication-more-authors {
+    display: inline;
+    summary { display: inline; cursor: pointer; color: #666; border-bottom: 1px dashed #666; }
+    &[open] span { display: block; }
+  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  .publication-actions { position: relative; margin-top: 8px; }
+  .publication-links { display: flex; gap: 6px; flex-wrap: wrap; }
+  .publication-abstract + .publication-links { position: absolute; top: 0; left: 64px; }
+  .publication-button {
+    display: inline-block; font: 12px/1.5 Roboto, Arial, sans-serif;
+    color: #212529; border: 1px solid #212529; border-radius: 4px;
+    padding: 4px 16px; background: transparent; cursor: pointer;
+    &:hover, &:focus-visible { color: #268bd2; border-color: #268bd2; text-decoration: none; }
+  }
+  .publication-abstract-text {
+    border: 1px dashed #212529; padding: 10px; margin-top: 12px;
+    p { font: 14px/1.5 Roboto, Arial, sans-serif; margin: 0 0 10px; }
+    p:last-child { margin-bottom: 0; }
+  }
+  @media (max-width: 575px) {
+    .publication-item { grid-template-columns: 1fr; gap: 12px; }
+    .publication-thumbnail img { max-width: 180px; }
+  }
+}

@@ -3,5 +3,11 @@ layout: default
 ---
 <div class="container content page">
   <h3 class="page-title">{{ page.name }}</h3>
+  {% if page.email and page.email != empty %}
+  <p class="person-email"><a href="mailto:{{ page.email | escape }}">{{ page.email | escape }}</a></p>
+  {% endif %}
+  {% if page.avatar %}
+  <p><img width="300" src="{{site.baseurl}}/images/people/{{page.avatar}}" data-action="zoom" /></p>
+  {% endif %}
   {{ content }}
 </div>

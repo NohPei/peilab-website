@@ -1,0 +1,16 @@
+# IDs are the exact values used by position in _people/*.md.
+# List order controls the sections on the people page.
+- id: pi
+  label: Principal Investigator
+- id: postdoc
+  label: Postdoctoral Fellows
+- id: gradstudent
+  label: PhD Students
+- id: researchstaff
+  label: Research Staff
+- id: visiting
+  label: Visiting Students
+- id: others
+  label: Master & Undergrad Students
+- id: alumni
+  label: Alumni

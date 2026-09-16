@@ -1,0 +1,8 @@
+{% assign projects_sorted = site.projects | where_exp: 'project', 'project.published != false' | sort: 'order' %}
+{% if projects_sorted.size > 0 %}
+<div class="projects-list">
+{% for project in projects_sorted %}
+{% include project-card.html project=project %}
+{% endfor %}
+</div>
+{% endif %}

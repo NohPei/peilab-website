@@ -1,0 +1,7 @@
+{% for post in site.posts %}
+<article class="list-item">
+  <h3 class="list-post-title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+  <p class="list-post-date"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %-d, %Y' }}</time></p>
+  {% if post.summary %}<p>{{ post.summary | escape }}</p>{% endif %}
+</article>
+{% endfor %}

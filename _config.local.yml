@@ -1,0 +1,3 @@
+# Used only by the Docker preview; production builds use _config.yml alone.
+url: http://localhost:4000
+baseurl: ""

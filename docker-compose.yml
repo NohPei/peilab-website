@@ -1,0 +1,14 @@
+services:
+  jekyll:
+    # Match the runtime used by HCIMaker.github.io.
+    image: amirpourmand/al-folio:v0.12.1
+    working_dir: /srv/jekyll
+    entrypoint: [jekyll]
+    command: [serve, --config, "_config.yml,_config.local.yml", --host, 0.0.0.0, --port, "4000", --force_polling]
+    environment:
+      # Prevent Jekyll from replacing localhost URLs with its container bind address.
+      JEKYLL_ENV: local
+    ports:
+      - "127.0.0.1:4000:4000"
+    volumes:
+      - .:/srv/jekyll

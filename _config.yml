@@ -13,19 +13,22 @@ permalink:          /:year/:month/:day/:title.html
 # Markdown
 markdown:           kramdown
 
+# Contributor resources and development tooling are not published.
+exclude:
+  - docker-compose.yml
+  - AGENTS.md
+  - README.md
+  - CONTRIBUTING.md
+  - docs
+  - templates
+  - scripts
+  - _guides
+  - .refactor-check
+
 # Highlighter
 highlighter:        rouge
 
-# Navigation
-nav:
-  - name:           "home"
-    href:           "/"
-  - name:           "projects"
-    href:           "/project"
-  - name:           "publications"
-    href:           "/publication"
-  - name:           "people"
-    href:           "/people"
+# Navigation labels and links live in _data/navigation.yml.
 
 
 # Sass
@@ -46,9 +49,25 @@ defaults:
       type:         "people"
     values:
       layout:       "profile"
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+      order: 100
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
 
 
 collections:
   people:
     output: true
     permalink: /people/:title/index.html
+  projects:
+    output: true
+    permalink: /project/:name/
+  publications:
+    output: false

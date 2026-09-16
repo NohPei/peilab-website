@@ -1,0 +1,20 @@
+{% assign alumni_years = include.people | sort: 'graduation_year' | reverse | group_by: 'graduation_year' %}
+{% for year in alumni_years %}
+<section class="alumni-year" aria-labelledby="alumni-year-{{ year.name }}">
+<h4 class="alumni-year-heading" id="alumni-year-{{ year.name }}">{{ year.name }}</h4>
+<ul class="alumni-list" aria-label="{{ year.name }} alumni">
+  {% assign classmates = year.items | sort: 'name' %}
+  {% for person in classmates %}
+  <li class="alumni-item">
+    {% include person-card.html person=person %}
+    <div class="alumni-details">
+      <span>{{ person.previous_role | escape }}{% if person.joined and person.left %} · {{ person.joined }}–{{ person.left }}{% endif %}</span>
+      {% if person.destination and person.destination != empty %}
+      <span class="alumni-destination">{{ person.destination | escape }}</span>
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+</section>
+{% endfor %}
