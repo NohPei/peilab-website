@@ -85,9 +85,11 @@ website files directly on the remote vhost.
 ### 1. Save the source on GitHub
 
 Commit the source files, assets and any contributor documentation together, then
-push your branch to `origin` (`https://github.com/NohPei/peilab-website`). Follow
-the pull request workflow in [CONTRIBUTING.md](CONTRIBUTING.md); after review and
-merge, update your local `main` before building the version to publish. Check
+push your branch to `origin` (`https://github.com/NohPei/peilab-website`). Use
+a pull request for team review. An authorized maintainer publishing an approved
+update may instead push the reviewed commits directly to `main`, when repository
+rules permit. In either case, synchronize local and GitHub `main` before
+building the version to publish. Check
 that the working tree is clean with `git status` and record `git rev-parse HEAD`
 so the published version can be traced to a commit. Do not commit `_site/`.
 

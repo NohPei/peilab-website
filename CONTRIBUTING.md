@@ -16,6 +16,10 @@ Always save changes on GitHub before publishing them. GitHub tracks the source;
 the vhost serves the generated website. Pushing to GitHub does not deploy the
 site automatically. Do not edit website files directly on the remote vhost.
 
+For an approved update, an authorized maintainer may push reviewed commits
+directly to `main` when repository rules permit, instead of opening a pull
+request. Build from the clean local commit saved on GitHub `main`, then upload.
+
 Keep one change per pull request when practical. Do not commit `_site/`, caches
 or local comparison output. Documentation, templates, scripts and the HTML guide
 are excluded from the public website.
