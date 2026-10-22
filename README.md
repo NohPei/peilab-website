@@ -1,37 +1,27 @@
 # PEI Lab @ University of Michigan
 
-Source for the [PEI Lab website](https://peilab.eecs.umich.edu). Jekyll combines
-content files with shared templates and writes the published website to `_site/`.
+Source for the [PEI Lab website](https://peilab.eecs.umich.edu). Jekyll combines content files with shared templates and writes the published website to `_site/`.
 
 ## Start here
 
 - **Visual folder guide:** open [_guides/show-me-website-map.html](_guides/show-me-website-map.html) in a browser.
-- **Saved project design:** open the [reusable HTML template](templates/project-page.html) or [ViLA reference](_guides/show-me-project-vila.html). These drafts include optional video/material areas and stay out of the published projects.
+- **Saved project design:** open the [reusable HTML template](templates/project-page.html) or [project ViLA reference](_guides/show-me-project-vila.html). These drafts include optional video/material areas and stay out of the published projects.
 - **Add or edit content:** follow [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Maintain templates and styling:** see [docs/STRUCTURE.md](docs/STRUCTURE.md).
 
 | Update | Edit |
 | --- | --- |
-| Person, bio or email | `_people/<existing-filename>.md` (optional `email` field) |
-| Master's / undergraduate mentor | `_people/*.md`: for `position: others`, add `mentor: Julia` to show `(Mentor: Julia)` beside the name |
-| Disable a person's name/photo links | Set `profile_link: false` in their `_people/*.md`; remove it or use `true` to restore links |
-| Alumni / graduation year | `_people/*.md`: `position: alumni` and `graduation_year: 2026`; automatically grouped newest first |
-| Headshot | `images/people/`; match the profile's `avatar` field |
+| Person | `_people/<existing-filename>.md` and add photo to `images/people/` |
 | Project | `_projects/<project-name>.md` |
 | Publication | `_publications/<year>-<paper-name>.md` |
-| News post | `_posts/YYYY-MM-DD-title.md` |
+| News item | `_data/news.yml` (longer articles: `_posts/YYYY-MM-DD-title.md`) |
 | Project / post figures | `images/projects/<project-name>/` or `images/posts/<post-name>/` |
 | Paper PDFs | `files/publications/` |
 | Publication thumbnails | `images/publications/` |
-| Homepage text | `index.html` |
 | Slideshow images, order and alt text | `images/slideshow/` + `_data/slideshow.yml` |
 | Navigation | `_data/navigation.yml` |
-| Member role labels / order | `_data/roles.yml` |
 
-Copy a starting file from `templates/`. People, project and publication listings
-read their content folders automatically. The news listing is prepared but
-disabled until the first post is ready; see the activation steps in CONTRIBUTING.md.
-Existing projects/publications introduction text stays in the root page files.
+See `CONTRIBUTING.md` for more info.
 
 ## Which GitHub branch should I use?
 
@@ -40,46 +30,30 @@ updates. Create a short-lived branch for a contribution, then merge it into
 `main` after review. Authorized maintainers may push approved changes directly
 to `main` when repository rules permit.
 
-The earlier `website-maintenance` branch was used for the website reorganization.
-Its changes are already included in `main`; it is not a separate website or a
-deployment branch. Do not start new work from that older branch. A branch being
-on GitHub does not mean it has been published to the U-M server.
 
-## Preview locally with Docker (Windows or other platforms)
+## Preview changes locally
 
-This uses the same Ruby/Jekyll Docker image as `HCIMaker.github.io`; no local
-Ruby installation is needed.
+Requires Ruby 3.2+ (macOS, Linux or WSL). Install the pinned gems once, then
+start the preview:
 
-1. Start Docker Desktop and wait for its engine to run.
-2. Open a terminal in this repository:
-
-```powershell
-docker compose up
+```bash
+bundle install
+bundle exec jekyll serve --config _config.yml,_config.local.yml
 ```
 
 Open <http://localhost:4000> once Jekyll reports that the server is running.
 Keep it running while editing, then refresh your browser after each rebuild.
-Data-file edits are picked up automatically. After changing `_config.yml` or
-`_config.local.yml`, stop with `Ctrl+C` and run the command again.
+After changing `_config.yml` or `_config.local.yml`, stop with `Ctrl+C` and run
+the command again. On WSL, add `--force_polling` if edits are not picked up.
+`Gemfile.lock` pins the Jekyll version; commit it when it changes.
 
-For background operation, use `docker compose up -d`, inspect output with
-`docker compose logs -f`, and stop with `docker compose down`.
-
-### Existing Jekyll installation
-
-If you already have a compatible Jekyll installation, run:
-
-```bash
-jekyll serve --config _config.yml,_config.local.yml
-```
-
-The Docker runtime is the reference environment used by the automated checks.
+Backup option without Ruby: `docker compose up` (requires Docker).
 
 ## Check your update
 
-```powershell
-docker compose run --rm --entrypoint ruby jekyll scripts/validate.rb
-docker compose run --rm -e JEKYLL_ENV=production --entrypoint ruby jekyll scripts/check-build.rb
+```bash
+bundle exec ruby scripts/validate.rb
+JEKYLL_ENV=production bundle exec ruby scripts/check-build.rb
 ```
 
 The first command validates required fields, member roles and local content assets.
@@ -90,26 +64,18 @@ production build on pushes and pull requests.
 
 ## Production build and deployment
 
-Follow this order for every update: **edit locally → check and preview → commit
-and push to GitHub → build locally → upload to the U-M vhost**. GitHub holds the
-source and change history; `/w/peilab/` holds the generated public website.
-Make all content, layout and style edits in your local repository. Do not edit
-website files directly on the remote vhost.
+Follow this order for every update: **edit locally → check and preview → commit and push to GitHub → build locally → copy/upload to UM vhost**. 
+
+GitHub holds the source and change history; `/w/peilab/` holds the generated public website.
+Make all content, layout and style edits in your local repository. **Do not edit website files directly on the remote vhost.**
 
 **What does “copy to vhosts” mean?** Upload the *contents* of your locally built
 `_site/` directory to `/w/peilab/` on `vhosts.eecs.umich.edu`. For example,
 `_site/publication/index.html` becomes `/w/peilab/publication/index.html`.
 Do not upload the source repository or create `/w/peilab/_site/`.
 
-| Location | Purpose |
-| --- | --- |
-| Local repository + GitHub `main` | Editable Markdown, templates, assets and change history |
-| Local `_site/` | Generated HTML, CSS, JavaScript and assets; rebuilt by Jekyll |
-| Vhost `/w/peilab/` | Generated files served at `https://peilab.eecs.umich.edu/` |
+After uploading, the changes will be reflected on `https://peilab.eecs.umich.edu/`.
 
-Pushing to GitHub runs checks; it does **not** upload to vhosts. A direct upload
-can look the same to visitors, but the GitHub step first preserves the exact
-source for other contributors and future updates.
 
 ### 1. Save the source on GitHub and select the version to publish
 
@@ -139,15 +105,15 @@ in [Check your update](#check-your-update) and preview any visible changes.
 
 ### 2. Build the public website locally
 
-Keep Docker Desktop running. In **PowerShell, in the repository**:
+In a terminal **in the repository** (WSL on Windows):
 
-```powershell
-# Stop the preview so it cannot overwrite production files with localhost URLs.
-docker compose down
-
+```bash
+# Stop the preview (Ctrl+C) so it cannot overwrite production files with localhost URLs.
 # Build using _config.yml and the production website URL.
-docker compose run --rm -e JEKYLL_ENV=production jekyll build
+JEKYLL_ENV=production bundle exec jekyll build
 ```
+
+Backup option: `docker compose run --rm -e JEKYLL_ENV=production jekyll build`.
 
 Continue only if the build succeeds. Keep the preview stopped until uploading
 is finished. Never manually edit `_site/`; make corrections in the source,
@@ -246,55 +212,10 @@ changed page, its links and its images. Hard-refresh if your browser shows an ol
 copy. Record the commit, uploaded paths, backup location and verification result.
 An upload error or remaining differences means the full deployment is incomplete.
 
-### Publishing only a small update
 
-An authorized maintainer can upload a reviewed subset when only those generated
-files need changing. Follow the same commit, build, login, backup and verification
-steps above. For example, to update the People listing and its styling, run these
-in place of the full-site transfer and comparison, **before closing SSH**:
-
-```bash
-# Preview just these two generated files.
-rsync -rlcni --relative -e "$ssh_transport" \
-  _site/./people/index.html _site/./style.css "$deploy_target:/w/peilab/"
-
-# Upload the selected files, keeping their paths relative to _site/./.
-rsync -rlcP --relative -e "$ssh_transport" \
-  _site/./people/index.html _site/./style.css "$deploy_target:/w/peilab/"
-
-# Verify the same selection; expect no file differences.
-rsync -rlcni --relative -e "$ssh_transport" \
-  _site/./people/index.html _site/./style.css "$deploy_target:/w/peilab/"
-```
-
-Include **every** generated file and asset affected by your change. Shared layout
-or navigation edits can change many pages, so use the full-site comparison to
-determine the scope. A successful targeted upload verifies only its selected files;
-it does not resolve unrelated differences elsewhere on the server.
-
-### Removed pages and permission errors
-
-- These commands do not delete old remote files. For a removed page or photo,
-  review its exact server path against the committed source change, retain a
-  backup, then have an authorized maintainer remove that specific obsolete path.
-  Do not add a blanket `--delete` to the upload command.
-- A People card is in `/w/peilab/people/index.html`; Ellina's individual profile
-  is `/w/peilab/people/ellina_ho/index.html`. One can be writable while the other
-  is blocked. Updating the listing does not require replacing the profile page.
-- If a transfer reports `Permission denied`, check the exact destination path.
-  The directory owner or an administrator must grant the appropriate shared
-  access. For a reviewed directory, they can run `chgrp peigroup <directory>`
-  and `chmod g+rwx,g+s <directory>`. These are owner/admin repair commands,
-  not a routine publishing step. Preserve existing access; do not change
-  permissions across the whole site indiscriminately.
-- SSH login failure, network timeout and a file-transfer permission error are
-  different problems. Check login for the first, VPN/network access for the
-  second, and the named server folder's permissions for the third. A GitHub
-  push does not grant vhost write access.
-
-### Documentation-only changes
-
+### Documentation 
 README, CONTRIBUTING and the visual maintenance guide are excluded from `_site/`.
 Commit and push documentation updates to GitHub; they require no vhost upload.
 
-For help with contributions, reach out to Julia.
+
+For help or questions, reach out to Julia. 

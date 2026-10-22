@@ -1,0 +1,13 @@
+# Lab news, shown on /news/ newest first (order here doesn't matter).
+# Copy this block to the top, fill it in, and delete what you don't need:
+#
+# - date: 2026-10-01                             # YYYY-MM-DD, no quotes
+#   text: "Best Paper Award at BuildSys 2026!"   # Markdown allowed: **bold**, [links](https://...)
+#   link: https://example.com/paper              # optional; makes the item clickable
+#   image: /images/news/buildsys-2026.jpg        # optional; put the file in images/news/
+#   image_alt: "Tim accepting the award"         # required when image is set
+
+- date: 2026-10-01
+  text: "PEI Lab highlighted in ACM XRDS Magazine"
+  link: https://dl.acm.org/doi/pdf/10.1145/3812679
+

@@ -50,6 +50,10 @@ Dir.mktmpdir("peilab-check-") do |temporary|
   fixture.call("post.md", "_posts/2020-01-03-check-hidden-post.md", { "title" => "Unpublished fixture", "published" => false })
   news = File.join(source, "news.md")
   File.write(news, File.read(news).sub("published: false", "published: true"))
+  File.write(File.join(source, "_data/news.yml"), YAML.dump([
+    { "date" => Date.new(2020, 1, 5), "text" => "Fixture **news** item", "link" => "/project/" },
+    { "date" => Date.new(2021, 3, 1), "text" => "Newer fixture news", "image" => "/images/people/ece-photo-placeholder.png", "image_alt" => "Fixture news image" }
+  ]))
 
   assert.call(system(RbConfig.ruby, File.join(source, "scripts/validate.rb")), "Fixture content validation failed")
   config = Jekyll.configuration("source" => source, "destination" => destination, "config" => File.join(source, "_config.yml"), "baseurl" => "/fixture", "quiet" => true)
@@ -81,6 +85,8 @@ Dir.mktmpdir("peilab-check-") do |temporary|
   assert.call(!File.exist?(File.join(destination, "publications/check-paper/index.html")), "Publication records should not generate detail pages")
   news_html = html.call("news/index.html")
   assert.call(news_html.include?('href="/fixture/2020/01/02/check-post.html"'), "News listing must link to dated posts")
+  assert.call(news_html.include?("<strong>news</strong>") && news_html.include?('href="/fixture/project/"') && news_html.include?('alt="Fixture news image"'), "News items must render from _data/news.yml")
+  assert.call(news_html.index("Newer fixture news") < news_html.index("Fixture <strong>news</strong>"), "News items must be listed newest first")
   post = html.call("2020/01/02/check-post.html")
   assert.call(post.include?("Fixture post body.") && post.include?('src="/fixture/images/people/ece-photo-placeholder.png"'), "Posts and figures must render")
   assert.call([projects, papers, news_html].none? { |text| text.include?("Unpublished fixture") }, "Unpublished records must stay out of listings")

@@ -1,0 +1,12 @@
+{% assign items = site.data.news | sort: "date" | reverse %}
+<ul class="news-list">
+{% for item in items %}
+  <li class="news-item">
+    <time class="news-date" datetime="{{ item.date | date_to_xmlschema }}">{{ item.date | date: '%b %Y' }}</time>
+    <div class="news-body">
+      {% if item.link %}<a href="{{ item.link | relative_url }}">{{ item.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}</a>{% else %}{{ item.text | markdownify | remove: '<p>' | remove: '</p>' | strip }}{% endif %}
+      {% if item.image %}<img src="{{ item.image | relative_url }}" alt="{{ item.image_alt | escape }}" loading="lazy">{% endif %}
+    </div>
+  </li>
+{% endfor %}
+</ul>

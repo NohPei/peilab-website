@@ -36,7 +36,8 @@ peilab-website/
 ├── .github/workflows/       # checks on pushes and pull requests
 ├── _config.yml              # collection registration and layout defaults
 ├── _config.local.yml        # localhost preview overrides
-└── docker-compose.yml       # shared build/preview runtime
+├── Gemfile                  # pinned Jekyll version (bundle install)
+└── docker-compose.yml       # backup Docker runtime
 ```
 
 `.gitkeep` files retain otherwise empty folders in Git and are not published.

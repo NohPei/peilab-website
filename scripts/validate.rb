@@ -69,6 +69,23 @@ else
   errors << "_data/slideshow.yml: expected a list (use [] for an empty slideshow)"
 end
 
+news = read_yaml.call(File.read(File.join(root, "_data/news.yml")), "_data/news.yml")
+news = [] if news.nil? # a file with only comments means no news yet
+if news.is_a?(Array)
+  news.each_with_index do |item, index|
+    label = "_data/news.yml entry #{index + 1}"
+    unless item.is_a?(Hash) && item["date"].is_a?(Date) && nonempty.call(item["text"])
+      errors << "#{label}: date (YYYY-MM-DD, no quotes) and text are required"
+      next
+    end
+    errors << "#{label}: link must be text" if item["link"] && !nonempty.call(item["link"])
+    asset.call(item["image"], label)
+    errors << "#{label}: image_alt is required when image is set" if item["image"] && !nonempty.call(item["image_alt"])
+  end
+else
+  errors << "_data/news.yml: expected a list of items starting with \"- date:\""
+end
+
 required = {
   "_people" => %w[name position],
   "_projects" => %w[title summary],

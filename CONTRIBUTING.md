@@ -8,27 +8,9 @@ handle page formatting, so routine contributions need only Markdown, metadata an
 1. Pull the latest repository and create a branch for your update.
 2. Edit an existing content file locally or copy the appropriate file from `templates/`.
 3. Put images and downloads in the matching asset folders and reference them.
-4. Run the checks in [README.md](README.md) and preview at `http://localhost:4000`.
+4. Run the checks in [README.md](README.md#check-before-committing) and preview at `http://localhost:4000`.
 5. Commit the source files and assets together, push your branch to GitHub, and open a pull request describing the update.
-6. After review and merge, a lab maintainer updates their local `main`, builds locally, and copies the generated `_site/` files to the U-M vhost using [README.md](README.md#production-build-and-deployment).
-
-Start new branches from up-to-date `main`. The earlier `website-maintenance`
-branch has already been incorporated into `main` and is not a deployment branch.
-
-Always save changes on GitHub before publishing them. GitHub tracks the source;
-the vhost serves the generated website. Pushing to GitHub does not deploy the
-site automatically. Do not edit website files directly on the remote vhost.
-
-For an approved update, an authorized maintainer may push reviewed commits
-directly to `main` when repository rules permit, instead of opening a pull
-request. Build from the clean local commit saved on GitHub `main`, then upload.
-
-The README's publishing walkthrough labels the PowerShell and local WSL/Bash
-commands separately. It covers SSH login, a server backup, a dry run, copying
-the **contents** of `_site/` into `/w/peilab/`, and checking the public result.
-Keep the preview stopped during the production build and upload. A partial
-upload must include every generated page and asset affected by the change.
-Documentation-only changes need a GitHub push but no vhost upload.
+6. After merge, a maintainer publishes it to the U-M server using [README.md](README.md#production-build-and-deployment). Pushing to GitHub does not publish the site.
 
 Keep one change per pull request when practical. Do not commit `_site/`, caches
 or local comparison output. Documentation, templates, scripts and the HTML guide
@@ -171,33 +153,33 @@ Publication records do not generate individual pages. Optional Markdown after
 the header appears below the citation. Introductory text and the existing Scholar
 link stay in `publications.md`.
 
-## Add a news post
+## Add a news item
 
-Copy `templates/post.md` to `_posts/YYYY-MM-DD-post-name.md`. The filename must
-contain a real date. Supply `title`; optionally add `author` and `summary`. The
-post layout renders its title, date and author. Write the article below the header.
-
-Put figures in `images/posts/post-name/`. A post named
-`2026-09-14-lab-update.md` uses the existing date-based URL convention:
-`/2026/09/14/lab-update.html`.
-
-### Activate the news section with the first real post
-
-The reorganization did not add a public news page or change the navigation.
-When your first post is ready, make these changes in the same pull request:
-
-1. Change `published: false` to `published: true` in `news.md`.
-2. Add this entry to `_data/navigation.yml`:
+Add short news (papers accepted, awards, talks, new members) to `_data/news.yml`.
+Each item is a few lines; the News page sorts them newest first:
 
 ```yaml
-- name: news
-  href: /news/
+- date: 2026-10-01
+  text: "Our paper on X was accepted to **SenSys 2026**!"
+  link: https://example.com/paper        # optional
+  image: /images/news/sensys-2026.jpg    # optional; file goes in images/news/
+  image_alt: "Julia presenting at SenSys"  # required with image
 ```
 
-The news page then lists published posts automatically, newest first. Future-dated
-posts are hidden by Jekyll until their date; publication still requires a rebuild
-and deployment. Use `published: false` on a post or project while drafting. The
-listings also respect this flag for publications.
+Write `date` as `YYYY-MM-DD` without quotes. `text` accepts Markdown, such as
+`**bold**` and `[links](https://...)`. Delete optional lines you don't need.
+
+### Longer articles
+
+For a full write-up with its own page, copy `templates/post.md` to
+`_posts/YYYY-MM-DD-post-name.md`. The filename must contain a real date. Supply
+`title`; optionally add `author` and `summary`. Put figures in
+`images/posts/post-name/`. A post named `2026-09-14-lab-update.md` is published at
+`/2026/09/14/lab-update.html`; link to it from a news item with that path.
+Posts appear under "Articles" on the News page.
+
+Use `published: false` on a post or project while drafting. The listings also
+respect this flag for publications.
 
 ## Images and downloads
 
@@ -253,7 +235,7 @@ data-file, image and style edits rebuild automatically.
   update `_guides/show-me-website-map.html` in the same change. Keep it focused
   on what contributors need to know; routine content edits do not need a guide update.
 - Preview the changed page and its listing; check links and images at desktop and mobile widths.
-- Run `scripts/validate.rb` and `scripts/check-build.rb` using the Docker commands in README.md.
+- Run `scripts/validate.rb` and `scripts/check-build.rb` using the commands in README.md.
 - Check that filenames remain stable and that the correct source files and assets appear in `git diff`.
 - Include a short description and, for a visible layout change, a screenshot in the pull request.
 

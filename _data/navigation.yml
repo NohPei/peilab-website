@@ -7,7 +7,5 @@
   href: /publication
 - name: people
   href: /people
-
-# When the first news post is ready, enable news.md and add:
-# - name: news
-#   href: /news/
+- name: news
+  href: /news/
