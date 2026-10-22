@@ -103,8 +103,10 @@ handling and exclusions for contributor resources. It also confirms a missing
 image causes validation to fail. Fixtures never enter the working site.
 
 `.github/workflows/check-site.yml` runs content validation, a production build and
-the fixture checks. It performs no deployment. All commands use the Docker image
-already selected by this repository.
+the fixture checks. It performs no deployment. It installs the Ruby version in
+`.ruby-version` and the gems in `Gemfile.lock`, then runs the same `bundle exec`
+commands contributors use locally. `docker-compose.yml` uses the same Ruby
+version and lockfile for contributors without a local Ruby install.
 
 ## Migration notes — 14 September 2026
 

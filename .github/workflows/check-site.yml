@@ -13,9 +13,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      # Uses .ruby-version and Gemfile.lock, matching the local bundle exec workflow.
+      - uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
       - name: Validate content and asset references
-        run: docker compose run --rm --entrypoint ruby jekyll scripts/validate.rb
+        run: bundle exec ruby scripts/validate.rb
       - name: Build production website
-        run: docker compose run --rm -e JEKYLL_ENV=production jekyll build
+        run: JEKYLL_ENV=production bundle exec jekyll build
       - name: Exercise contributor templates in a temporary copy
-        run: docker compose run --rm -e JEKYLL_ENV=production --entrypoint ruby jekyll scripts/check-build.rb
+        run: JEKYLL_ENV=production bundle exec ruby scripts/check-build.rb

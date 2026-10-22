@@ -47,7 +47,11 @@ After changing `_config.yml` or `_config.local.yml`, stop with `Ctrl+C` and run
 the command again. On WSL, add `--force_polling` if edits are not picked up.
 `Gemfile.lock` pins the Jekyll version; commit it when it changes.
 
-Backup option without Ruby: `docker compose up` (requires Docker).
+Backup option without Ruby (requires Docker): `docker compose up`. The first
+start installs the pinned gems and takes a few minutes; later starts reuse them.
+Run the checks below the same way by prefixing each command with
+`docker compose run --rm site`, for example
+`docker compose run --rm site ruby scripts/validate.rb`.
 
 ## Check your update
 
@@ -113,7 +117,7 @@ In a terminal **in the repository** (WSL on Windows):
 JEKYLL_ENV=production bundle exec jekyll build
 ```
 
-Backup option: `docker compose run --rm -e JEKYLL_ENV=production jekyll build`.
+Backup option: `docker compose run --rm -e JEKYLL_ENV=production site jekyll build`.
 
 Continue only if the build succeeds. Keep the preview stopped until uploading
 is finished. Never manually edit `_site/`; make corrections in the source,

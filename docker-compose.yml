@@ -1,10 +1,11 @@
 services:
-  jekyll:
-    # Match the runtime used by HCIMaker.github.io.
-    image: amirpourmand/al-folio:v0.12.1
+  site:
+    # Same Ruby as .ruby-version; gems come from Gemfile.lock, like the bundle exec workflow.
+    image: ruby:3.2.2
     working_dir: /srv/jekyll
-    entrypoint: [jekyll]
-    command: [serve, --config, "_config.yml,_config.local.yml", --host, 0.0.0.0, --port, "4000", --force_polling]
+    # Install any missing pinned gems, then run the given command through Bundler.
+    entrypoint: [sh, -c, 'bundle check > /dev/null || bundle install; exec bundle exec "$@"', --]
+    command: [jekyll, serve, --config, "_config.yml,_config.local.yml", --host, 0.0.0.0, --port, "4000", --force_polling]
     environment:
       # Prevent Jekyll from replacing localhost URLs with its container bind address.
       JEKYLL_ENV: local
@@ -12,3 +13,8 @@ services:
       - "127.0.0.1:4000:4000"
     volumes:
       - .:/srv/jekyll
+      # Keep installed gems between runs so only the first start is slow.
+      - bundle:/usr/local/bundle
+
+volumes:
+  bundle:
