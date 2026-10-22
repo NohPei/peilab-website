@@ -2,20 +2,6 @@
 
 Source for the [PEI Lab website](https://peilab.eecs.umich.edu). Jekyll combines content files with shared templates and writes the published website to `_site/`.
 
-## Quick publish to vhosts
-
-After building (`JEKYLL_ENV=production bundle exec jekyll build`), copy the site to the server:
-
-```bash
-rsync -rlP --chmod=Dg+rwx,Fg+rw _site/ <uniqname>@vhosts.eecs.umich.edu:/w/peilab/
-```
-
-`--chmod=Dg+rwx,Fg+rw` keeps newly uploaded files group-writable so other
-maintainers can update them later. See
-[Production build and deployment](#production-build-and-deployment) for the full
-checklist and [Permission denied errors](#permission-denied-errors-during-rsync)
-if the upload reports `mkstemp ... Permission denied (13)`.
-
 ## Start here
 
 - **Visual folder guide:** open [_guides/show-me-website-map.html](_guides/show-me-website-map.html) in a browser.
@@ -94,6 +80,19 @@ Do not upload the source repository or create `/w/peilab/_site/`.
 
 After uploading, the changes will be reflected on `https://peilab.eecs.umich.edu/`.
 
+## Quick publish to vhosts
+
+After building (`JEKYLL_ENV=production bundle exec jekyll build`), copy the site to the server:
+
+```bash
+rsync -rlP --chmod=Dg+rwx,Fg+rw _site/ <uniqname>@vhosts.eecs.umich.edu:/w/peilab/
+```
+
+`--chmod=Dg+rwx,Fg+rw` keeps newly uploaded files group-writable so other
+maintainers can update them later. See
+[Production build and deployment](#production-build-and-deployment) for the full
+checklist and [Permission denied errors](#permission-denied-errors-during-rsync)
+if the upload reports `mkstemp ... Permission denied (13)`.
 
 ### 1. Save the source on GitHub and select the version to publish
 
