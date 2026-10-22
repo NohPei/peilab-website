@@ -2,6 +2,20 @@
 
 Source for the [PEI Lab website](https://peilab.eecs.umich.edu). Jekyll combines content files with shared templates and writes the published website to `_site/`.
 
+## Quick publish to vhosts
+
+After building (`JEKYLL_ENV=production bundle exec jekyll build`), copy the site to the server:
+
+```bash
+rsync -rlP --chmod=Dg+rwx,Fg+rw _site/ <uniqname>@vhosts.eecs.umich.edu:/w/peilab/
+```
+
+`--chmod=Dg+rwx,Fg+rw` keeps newly uploaded files group-writable so other
+maintainers can update them later. See
+[Production build and deployment](#production-build-and-deployment) for the full
+checklist and [Permission denied errors](#permission-denied-errors-during-rsync)
+if the upload reports `mkstemp ... Permission denied (13)`.
+
 ## Start here
 
 - **Visual folder guide:** open [_guides/show-me-website-map.html](_guides/show-me-website-map.html) in a browser.
@@ -192,14 +206,44 @@ if needed. Continue only after the backup succeeds.
 rsync -rlcni -e "$ssh_transport" _site/ "$deploy_target:/w/peilab/"
 
 # After reviewing the list, copy new or changed generated files to the live site.
-rsync -rlcP -e "$ssh_transport" _site/ "$deploy_target:/w/peilab/"
+rsync -rlcP --chmod=Dg+rwx,Fg+rw -e "$ssh_transport" _site/ "$deploy_target:/w/peilab/"
 ```
 
 **Keep the trailing slash in `_site/`: it copies the contents into the web root.**
 Use these `rsync` flags: `-r` copies directories, `-l` preserves symbolic links,
-`-c` compares contents instead of timestamps, and `-P` shows progress and retains
-partial transfers. They do not request changes to existing ownership or permissions.
-Use this workflow instead of `scp` or adding permission-preserving flags.
+`-c` compares contents instead of timestamps, `-P` shows progress and retains
+partial transfers, and `--chmod=Dg+rwx,Fg+rw` makes newly created files and
+folders group-writable so the next maintainer can overwrite them. They do not
+change ownership or permissions of existing files.
+Use this workflow instead of `scp` or adding permission-preserving flags (`-p`, `-a`).
+
+#### Permission denied errors during rsync
+
+```text
+rsync: [receiver] mkstemp "/w/peilab/people/shijia_pan/.index.html.DnjiRn" failed: Permission denied (13)
+rsync error: some files/attrs were not transferred (see previous errors) (code 23)
+```
+
+rsync writes a temporary file inside each destination folder, so this means
+**that folder** is not writable by you, usually because another maintainer
+uploaded it without group-write permission. Other files still uploaded; only the
+listed paths are stale. To fix it:
+
+```bash
+# See who owns the blocked folders and their permissions.
+ssh <uniqname>@vhosts.eecs.umich.edu 'ls -ld /w/peilab/images/publications /w/peilab/people/shijia_pan'
+```
+
+The **owner shown in that listing** (or an EECS vhost administrator) runs this on
+the server to make the whole site group-writable again:
+
+```bash
+ssh <owner-uniqname>@vhosts.eecs.umich.edu \
+  'find /w/peilab -user "$USER" \( -type d -exec chmod g+rwxs {} + \) -o \( -type f -exec chmod g+rw {} + \)'
+```
+
+Then rerun the rsync command. The `--chmod` flag above prevents this from
+happening again for files uploaded afterwards.
 
 ### 5. Verify the public result
 

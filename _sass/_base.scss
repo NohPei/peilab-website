@@ -11,6 +11,9 @@ body {
 }
 
 html {
+  // Always reserve scrollbar space so the centered navbar does not shift
+  // between short pages (no scrollbar) and long pages.
+  overflow-y: scroll;
   font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 18px;
   font-weight: 300;
